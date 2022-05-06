@@ -622,6 +622,7 @@ public class ZenDiscovery extends AbstractLifecycleComponent implements Discover
             if (localNodeMaster() == false && masterNode.equals(committedState.get().nodes().getMasterNode())) {
                 // flush any pending cluster states from old master, so it will not be set as master again
                 pendingStatesQueue.failAllStatesAndClear(new ElasticsearchException("master left [{}]", reason));
+                //重新加入集群
                 rejoin("master left (reason = " + reason + ")");
             }
         }
